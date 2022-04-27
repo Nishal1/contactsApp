@@ -2,22 +2,20 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight } f
 import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function AppListItem({ image, title, onPressView, onPressDelete}) {
+export default function Card({ image, title, onPressView, onPressDelete}) {
   return (
-    <TouchableHighlight onPress={onPressView}>
-        <View style={styles.container}>
-            {image && <Image source={image} style={styles.image} />}
-            <View style={styles.textContainer}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-            <TouchableOpacity onPress={onPressDelete}>
-                <MaterialCommunityIcons 
-                    name="delete"
-                    size={40}
-                />
-            </TouchableOpacity>
+    <View style={styles.container}>
+        {image && <Image source={image} style={styles.image} />}
+        <View style={styles.textContainer}>
+            <Text style={styles.title}>{title}</Text>
         </View>
-    </TouchableHighlight>
+        <TouchableOpacity onPress={onPressDelete}>
+            <MaterialCommunityIcons 
+                name="delete"
+                size={40}
+            />
+        </TouchableOpacity>
+    </View>
   )
 }
 

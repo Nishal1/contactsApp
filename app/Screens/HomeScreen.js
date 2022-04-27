@@ -1,13 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, Modal, StyleSheet, Text, View } from 'react-native';
 import * as Contacts from 'expo-contacts';
 
 import AppListItem from '../components/AppListItem';
+import Card from '../components/Card';
 
-export default function Home({ route }) {
+export default function Home({ route, navigation }) {
   const [refreshing, setRefreshing] = useState(false);
+  const [selectItem, setSelectItem] = useState(null);
+  const [isVisible, setVisibility] = useState(false);
   const [c, setD] = useState(null);
+  
+  const handleDelete = async (id) => {
+    if(id == null) {
+      return;
+    }
+    await Contacts.removeContactAsync(id);
+  }
+
+  const deleteButtonAlert = (id) =>
+  Alert.alert(
+    "Are you sure you want to delete this contact?",
+    "If you delete this, it might be lost forever!",
+    [
+      { 
+        text: "Yes", 
+        onPress: () => {
+          handleDelete(id);
+          alert("Contact deleted successfully!");
+          navigation.navigate('Home', {
+            isRefresh: true
+        });
+      }},
+      {
+        text: "No",
+        onPress: () => console.log("cancelled"),
+        style: "cancel"
+      }
+    ]
+  );
+
   const getInfo = () => {
     useEffect(() => {
       (async () => {
@@ -27,12 +60,11 @@ export default function Home({ route }) {
     if (data.length > 0) {
       const contact = data;
       setD(contact);
-      //console.log(contact);
+      // console.log(contact);
     }
   }
   getInfo();
   if(route.params && route.params.isRefresh) {
-    
     waitForData();
   }
   return (
@@ -44,14 +76,27 @@ export default function Home({ route }) {
         // refreshing={refreshing}
         // onRefresh={() => refresh()}
         renderItem={({item}) => (
-            <AppListItem 
+            <AppListItem
                 image={item.image}
                 title={item.name}
-                onPress={() => 1}
+                onPressDelete={() => {deleteButtonAlert(item.id)}}
+                onPressView={() => {
+                  setVisibility(true);
+                  setSelectItem(item);
+                  console.log(selectItem)
+                }}
             />
-            // console.log(item)
         )}
         />
+        <Modal 
+          animationType="fade"
+          visible={isVisible}
+        >
+              {selectItem != null ? <Card
+              // image={selectItem.image}
+              title={selectItem.name}
+              />: <></>}
+        </Modal>
       <StatusBar style="auto" />
     </View>
   );
