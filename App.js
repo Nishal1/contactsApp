@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 50,
-    marginBottom: 50
+    marginBottom: 0
     // alignItems: 'center',
     // justifyContent: 'center',
   },

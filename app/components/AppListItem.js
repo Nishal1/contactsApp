@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
 import React from 'react'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function AppListItem({image, title, onPress}) {
   return (
@@ -9,6 +10,12 @@ export default function AppListItem({image, title, onPress}) {
             <View style={styles.textContainer}>
                 <Text style={styles.title}>{title}</Text>
             </View>
+            <TouchableOpacity>
+                <MaterialCommunityIcons 
+                    name="delete"
+                    size={40}
+                />
+            </TouchableOpacity>
         </View>
     </TouchableHighlight>
   )
@@ -16,12 +23,14 @@ export default function AppListItem({image, title, onPress}) {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: 'lightgrey',
         flexDirection: 'row',
         padding: 20,
         borderWidth: 1, 
         borderColor: '#000',
         marginBottom: 3,
-        borderRadius: 5
+        borderRadius: 5,
+        justifyContent: 'space-between'
     },
     image: {
         height: 75,
@@ -35,6 +44,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
+        fontSize: 18
     },
     subtitle: {
         fontSize: 15,
