@@ -79,6 +79,7 @@ export default function Home({ route, navigation }) {
             <AppListItem
                 image={item.image}
                 title={item.name}
+                navigation={navigation}
                 onPressDelete={() => {deleteButtonAlert(item.id)}}
                 onPressView={() => {
                   setVisibility(true);
@@ -94,7 +95,11 @@ export default function Home({ route, navigation }) {
         >
               {selectItem != null ? <Card
               // image={selectItem.image}
+              id={selectItem.id}
               title={selectItem.name}
+              subtitle={selectItem.company}
+              obj={selectItem}
+              onPress={() => setVisibility(false)}
               />: <></>}
         </Modal>
       <StatusBar style="auto" />

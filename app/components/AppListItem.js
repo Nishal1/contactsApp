@@ -23,7 +23,7 @@ export default function AppListItem({ image, title, onPressView, onPressDelete})
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: '#B2ACAB',
         flexDirection: 'row',
         padding: 20,
         borderWidth: 1, 
